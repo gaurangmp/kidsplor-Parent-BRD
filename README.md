@@ -87,7 +87,7 @@ Parent Portal (Web App — Phase 1)
 ├── Messaging / Inbox
 │   └── Conversations with Providers
 ├── Reviews & Ratings
-├── ├── Notifications
+├── Notifications
 ```
 
 ---
