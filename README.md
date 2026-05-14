@@ -1,6 +1,6 @@
 # KidStreet — Parent Portal
 ## Business Requirements Document (BRD)
-### Version 1.0 · Phase 1 (MVP) + Phase 2 (Future) · May 2026
+### Version 1.0 · Phase 1 (MVP) · May 2026
 
 ---
 
@@ -66,11 +66,11 @@ Parent Portal (Web App — Phase 1)
 ├── Search & Discovery
 │   ├── Keyword / Category / Location Search
 │   ├── Filters (age, accessibility, inclusion, schedule, price)
-│   └── Map View or Map View (TBA)
+│   └── Map View or Listings View (TBA)
 ├── Activity & Provider Listings
 │   ├── Provider Profile Page
 │   ├── Class Detail Page
-│   └── Instructor Profile
+│   └── Coach Profile
 ├── Booking Flow
 │   ├── Single Session Booking
 │   ├── Recurring / Term Enrolment
@@ -88,7 +88,6 @@ Parent Portal (Web App — Phase 1)
 │   └── Conversations with Providers
 ├── Reviews & Ratings
 ├── ├── Notifications
-└── Referral & Sharing
 ```
 
 ---
@@ -115,7 +114,7 @@ The landing page serves two audiences: parents (searching for activities) and pr
 - Footer: About, How it works, For Providers, Privacy Policy, Terms of Service, Contact.
 
 #### FR-01.3 — Provider-Facing Elements (separate section or tab)
-- "List your classes in 10 minutes" CTA with link to Provider Portal sign-up.
+- "List your classes in 5 minutes" CTA with link to Provider Portal sign-up.
 - Provider benefit highlights: free listing, direct payments, scheduling tools.
 - Link to provider sign-up / login.
 
@@ -171,7 +170,7 @@ Fields:
 
 | Field | Required | Notes |
 |---|---|---|
-| First name | Yes | |
+| First name | Yes | Used to display in classes |
 | Last name | Yes | Stored but not displayed publicly |
 | Date of birth | Yes | Used to auto-filter age-appropriate activities; displayed as age on bookings |
 | Gender | No | Optional; used for relevant activity filtering (e.g. girls-only classes) |
@@ -181,7 +180,6 @@ Fields:
 | Additional needs | No | Multi-select: ADHD, Autism Spectrum, Sensory Processing, Physical Disability, Vision Impairment, Hearing Impairment, Other (free text) |
 | NDIS participant | No | Yes/No; used to surface NDIS-eligible providers |
 | Emergency contact | No | Name + phone; shared with provider on booking confirmation |
-| School / year level | No | Optional; used for school-related search |
 
 #### FR-03.3 — Privacy & Data Handling
 - Medical notes and additional needs data are classified as **sensitive personal information** under the Australian Privacy Act 1988.
@@ -198,7 +196,7 @@ Fields:
 
 ---
 
-### FR-04: Search & Discovery
+### FR-04: Search & Discovery — Listings
 
 **Priority:** P0
 
@@ -290,36 +288,11 @@ Filters appear as a collapsible panel on the left (desktop) or as a bottom sheet
 
 ---
 
-### FR-05: Map Search
+### FR-05: Provider & Class Listings
 
 **Priority:** P0
 
-#### FR-05.1 — Map View
-- Interactive map (Google Maps API) showing class/provider pins within the searched area.
-- Each pin represents a provider location; clicking opens a mini-card with class summary and "View Details" CTA.
-- Map updates continuously as the parent pans/zooms (no need to click "Search this area" — continuous search).
-
-#### FR-05.2 — Map Pin Styling
-- Pins are colour-coded by activity category (consistent with category taxonomy colours).
-- Pin shows availability state: green (spots available), orange (≤ 2 spots), red (full/waitlist).
-- Cluster pins when multiple providers are in close proximity; click to expand.
-
-#### FR-05.3 — Map–List Sync
-- Hovering a list result highlights its pin on the map.
-- Clicking a map pin highlights the corresponding card in the list.
-- Filters applied to the list view instantly update which pins are shown on the map.
-
-#### FR-05.4 — "Near Me" Location
-- "Use my location" uses the browser Geolocation API (permission prompt).
-- If permission denied, defaults to suburb entered at search.
-
----
-
-### FR-06: Provider & Class Listings
-
-**Priority:** P0
-
-#### FR-06.1 — Provider Profile Page
+#### FR-05.1 — Provider Profile Page
 A dedicated page for each provider, containing:
 
 **Header Section**
@@ -371,7 +344,7 @@ A dedicated page for each provider, containing:
 - Address, parking notes (if provided by provider).
 - Link to Google Maps directions.
 
-#### FR-06.2 — Class Detail Page
+#### FR-05.2 — Class Detail Page
 A dedicated page for each class, containing:
 - Class name, provider name (link to provider profile)
 - Activity category, age group
@@ -389,7 +362,7 @@ A dedicated page for each class, containing:
 - "Save to Favourites" toggle
 - Share button
 
-#### FR-06.3 — Instructor Profile
+#### FR-05.3 — Instructor Profile
 - Photo, name, title/role
 - Bio (written by provider)
 - Qualifications and certifications (e.g. "Football Federation Australia Licensed Coach", "First Aid Certified")
@@ -398,17 +371,17 @@ A dedicated page for each class, containing:
 
 ---
 
-### FR-07: Booking Flow
+### FR-06: Booking Flow
 
 **Priority:** P0
 
-#### FR-07.1 — Booking Entry Points
+#### FR-06.1 — Booking Entry Points
 A parent can initiate a booking from:
 - The "Book Now" button on a class card (search results).
 - The "Book Now" CTA on the Class Detail Page.
 - A direct booking link shared by a provider or another parent (referral flow).
 
-#### FR-07.2 — Single Session Booking
+#### FR-06.2 — Single Session Booking
 Step 1: **Select Session**
 - Calendar or date-list showing available sessions for the class.
 - Each session shows date, time, available spots.
@@ -432,21 +405,21 @@ Step 4: **Booking Confirmation**
 - Provider notified of new booking.
 - **WOM prompt**: "Love KidStreet? Share with a friend and you'll both get $5 off your next booking." (referral link pre-populated with parent's referral code).
 
-#### FR-07.3 — Recurring / Term Enrolment
+#### FR-06.3 — Recurring / Term Enrolment
 - Available on classes set up with term/block pricing by the provider.
 - Parent selects a term start date; the system shows all sessions included in the term.
 - Price displayed as a lump sum or instalment option (if enabled by provider — Phase 2 for instalments).
 - On confirmation, all term sessions are added to the parent's upcoming bookings calendar.
 - Cancellation of a recurring enrolment: governed by provider's cancellation policy; shown prominently before payment.
 
-#### FR-07.4 — Trial Class Booking
+#### FR-06.4 — Trial Class Booking
 - Providers can mark a class session as "Trial" (free or at a reduced price).
 - Trial booking flow is identical to single session booking but with $0 or discounted price.
 - If using Stripe zero-dollar authorisation: parent's card is saved for future bookings but not charged.
 - A trial booking does not consume a regular class spot unless the provider configures it to do so.
 - After the trial session, the parent receives an automated prompt: "How was it? Book the full term now — [link]."
 
-#### FR-07.5 — Waitlist Booking
+#### FR-06.5 — Waitlist Booking
 - When a class is full, "Book Now" is replaced with "Join Waitlist".
 - Parent joins the waitlist by completing Steps 2–3 of the standard booking flow (child selection + contact details). Payment is NOT taken at waitlist join.
 - Parent receives a waitlist confirmation with their position (e.g. "You're #2 on the waitlist").
@@ -454,7 +427,7 @@ Step 4: **Booking Confirmation**
 - The parent clicks through, completes payment, and is enrolled.
 - If the parent does not respond within 24 hours, the offer moves to the next waitlist position.
 
-#### FR-07.6 — Booking Management (My KidStreet)
+#### FR-06.6 — Booking Management (My KidStreet)
 - Parent can view all upcoming bookings from their dashboard.
 - Per booking, the parent can:
   - View booking details.
@@ -465,6 +438,20 @@ Step 4: **Booking Confirmation**
 
 ---
 
+### FR-07: Class Listings
+**Priority:** P0
+
+#### FR-07.1 — Class Listings Compare Page
+
+On the listing view, the parent can compare upto 3 listings using a compare button.
+
+- Parent can view a side by side compare on listings.
+- The parent can:
+  - View Price, Rating, Schedule, Frequency, Delivery, Trial, Distance, Address, Contact no.
+  - CTA Favorites, Directions and Call
+---
+
+
 ### FR-08: Payments
 
 **Priority:** P0
@@ -473,7 +460,7 @@ Step 4: **Booking Confirmation**
 - Credit / debit card (Visa, Mastercard, Amex) via Stripe.
 - Apple Pay (Safari / iOS devices).
 - Google Pay (Chrome / Android devices).
-- PayPal (Phase 2 — evaluate demand).
+- PayPal (Phase 2 — evaluate - demand : Phase 2).
 
 #### FR-08.2 — Payment Processing
 - All payments processed via Stripe.
@@ -521,7 +508,7 @@ The parent dashboard ("My KidStreet") is the logged-in home screen for parents. 
 - Quick actions: Search Activities, Manage Children, Messages.
 - Recent activity feed: new messages, confirmed bookings, reminders.
 
-#### FR-09.2 — Upcoming Bookings
+#### FR-09.2 — Upcoming Bookings via Calendar view
 - List of all future confirmed bookings across all children.
 - Each booking card shows: class name, provider name, date/time, venue, child name, session type.
 - Actions per booking: View details, Add to calendar, Message provider, Cancel booking.
@@ -540,7 +527,6 @@ The parent dashboard ("My KidStreet") is the logged-in home screen for parents. 
 
 #### FR-10.1 — Review Eligibility
 - Only parents with a confirmed, completed booking can leave a review for that class/provider.
-- One review per booking (not per class). A parent who attends 10 sessions can leave one review per term enrolment.
 - Review prompt is sent via email 24 hours after the booked session date.
 
 #### FR-10.2 — Review Submission
@@ -577,7 +563,7 @@ Fields:
 #### FR-11.1 — Messaging Entry Points
 - From My Activites, Booking details page: "Message Provider" button (creates an Enquiry thread).
 - From a confirmed booking: "Message Provider" from the booking detail (creates a Booking thread).
-- From "My KidStreet → Messages".
+- From "Profile → Messages".
 
 #### FR-11.2 — Thread Types
 
@@ -661,16 +647,6 @@ The following badges are shown on provider cards (search results), provider prof
 - "X spots left" — shown when available spots ≤ 3 (urgency signal).
 - "X parents saved this class" — shown when saves > 10.
 
-#### FR-13.3 — "Referred by [Name]" Personalisation
-- When a parent arrives via a referral link (shared by another parent), the search results page and first provider page visited shows a banner: "You were referred by [Referring Parent First Name] 👋 — they think you'll love KidStreet."
-- This activates social commitment and increases first-booking conversion.
-
-#### FR-13.4 — Referral Program
-- Every parent account has a unique referral link (e.g. `kidstreet.com.au/ref/sarah-m`).
-- Referral link can be shared via WhatsApp, SMS, email, or copied to clipboard.
-- When a referred parent completes their first booking, both the referring and referred parent receive a $5 credit applied to their next booking.
-- Referral credits are shown in "My KidStreet → Wallet" (Phase 2 for full wallet UI; Phase 1: credit applied at checkout automatically).
-- Referral dashboard: "You've referred X friends · Earned $X in credits."
 
 #### FR-13.5 — Post-Booking WOM Prompt
 - Immediately after booking confirmation, the parent is shown: "Know another parent who'd love [Provider Name]? Share and you'll both get $5 off your next booking."
@@ -717,10 +693,9 @@ The following badges are shown on provider cards (search results), provider prof
 | NFR-09 | Sensitive data | Medical notes / additional needs data encrypted with separate key; access-logged |
 | NFR-10 | Payment security | PCI-DSS compliant via Stripe; no raw card data touches KidStreet servers |
 | NFR-11 | Privacy Act 1988 | Compliant with Australian Privacy Act; Privacy Policy accessible from all pages |
-| NFR-12 | WCAG Accessibility | WCAG 2.1 AA minimum — especially for inclusion-focused features |
-| NFR-13 | SEO | Server-side rendering (SSR) or static generation for all public-facing pages (landing, search, provider/class pages) for Google indexability |
-| NFR-14 | Email deliverability | Transactional email via SendGrid or Postmark with DKIM/SPF/DMARC configured |
-| NFR-15 | GDPR-adjacent | Data deletion on request within 30 days; data portability on request |
+| NFR-12 | SEO | Server-side rendering (SSR) or static generation for all public-facing pages (landing, search, provider/class pages) for Google indexability |
+| NFR-13 | Email deliverability | Transactional email via SendGrid or Postmark with DKIM/SPF/DMARC configured |
+| NFR-14 | GDPR-adjacent | Data deletion on request within 30 days; data portability on request |
 
 ---
 
@@ -733,15 +708,11 @@ The following badges are shown on provider cards (search results), provider prof
 | **Google Maps / Places API** | Location autocomplete, map view, venue maps | P1 |
 | **Google Maps Geocoding API** | Convert suburb/postcode to lat/lng for proximity search | P1 |
 | **Bureau of Meteorology / OpenWeatherMap API** | Weather forecast for indoor-only filter promotion | P2 |
-| **ACARA / MySchool data** | NAPLAN scores and school data for schools directory | P1 |
 | **SendGrid / Postmark** | Transactional email delivery | P1 |
 | **ABN Lookup API** (abr.business.gov.au) | Validate provider ABN (referenced from Provider BRD) | P1 |
-| **Apple OAuth** | Sign in with Apple | P2 |
 | **Twilio** | SMS booking reminders and notifications | P2 |
 | **Google Calendar API** | Two-way calendar sync | P2 |
 | **Apple Calendar (CalDAV)** | Calendar sync for iOS | P2 |
-| **PayPal** | Additional payment method | P2 |
-| **Firebase Cloud Messaging** | Push notifications for mobile app | P2 |
 
 ---
 
@@ -770,18 +741,14 @@ The following badges are shown on provider cards (search results), provider prof
 | US-P-19 | As a parent, I can message a provider before booking with an enquiry | P1 | P0 |
 | US-P-20 | As a parent, I can message a provider after booking (schedule change, catch-up, absence) | P1 | P0 |
 | US-P-21 | As a parent, I can receive provider messages in my email inbox as well as in-app | P1 | P0 |
-| US-P-22 | As a parent, I can search for and view local school NAPLAN scores | P1 | P0 |
-| US-P-23 | As a parent, I can register and log in with Google | P1 | P0 |
-| US-P-24 | As a parent, I can share a referral link and earn a $5 credit when a friend books | P1 | P1 |
-| US-P-25 | As a parent, I see a "Referred by [Name]" personalisation when I arrive via a referral link | P1 | P1 |
-| US-P-26 | As a parent, I receive email reminders 24 hours and 2 hours before a session | P1 | P0 |
-| US-P-27 | As a parent, I can view instructor/coach profiles and qualifications | P1 | P0 |
-| US-P-28 | As a parent, I can see real-time spot availability and urgency signals on class cards | P1 | P1 |
-| US-P-29 | As a parent, I can save providers / classes to a favourites list | P1 | P1 |
-| US-P-30 | As a parent, I can view my full booking history and download receipts | P2 | — |
-| US-P-31 | As a parent, I can receive mobile push notifications | P2 | — |
-| US-P-32 | As a parent, I can co-book a class with another parent and split the payment | P2 | — |
-| US-P-33 | As a parent, I can use natural language search to find activities | P2 | — |
+| US-P-22 | As a parent, I can register and log in with Google | P1 | P0 |
+| US-P-23 | As a parent, I receive email reminders 24 hours and 2 hours before a session | P1 | P0 |
+| US-P-24 | As a parent, I can view instructor/coach profiles and qualifications | P1 | P0 |
+| US-P-25 | As a parent, I can see real-time spot availability and urgency signals on class cards | P1 | P1 |
+| US-P-26 | As a parent, I can save providers / classes to a favourites list | P1 | P1 |
+| US-P-27 | As a parent, I can view my full booking history and download receipts | P1 | P1 |
+| US-P-28 | As a parent, I can comapre listings/classes | P1 | P0 |
+| US-P-29 | As a parent, I can use natural language search to find activities | P2 | — |
 
 ---
 
@@ -827,11 +794,6 @@ The following badges are shown on provider cards (search results), provider prof
 - [ ] WWCC Verified badge only appears when KidStreet has confirmed the provider's WWCC upload.
 - [ ] Top Provider badge appears only when: rating ≥ 4.8, review count ≥ 20, and response time < 24h.
 
-### AC-08: Referral
-- [ ] Each parent account has a unique, functional referral URL on registration.
-- [ ] When a referred parent completes their first booking, both accounts are credited $5 within 24 hours.
-- [ ] A parent who arrived via a referral link sees the "Referred by [Name]" banner on their first visit.
-
 ---
 
 ## 9. Data Model — Key Entities (Parent-Side, High Level)
@@ -873,9 +835,6 @@ InboxThread
  └── type: Enquiry | ScheduleChange | CatchupRequest | AbsenceNotice | General
  └── has many: Messages
 
-ReferralCode
- └── belongs to: Parent
- └── tracks: referred_parents[], creditsEarned
 ```
 
 ---
@@ -913,7 +872,6 @@ ReferralCode
 | WWCC | Working With Children Check — a government-issued safety screening for those working with children in Australia |
 | NDIS | National Disability Insurance Scheme (Australia) |
 | Trust Badge | A visual indicator on a provider listing confirming a verified attribute (WWCC, insurance, etc.) |
-| Referral Code | A unique URL/code per parent used to track word-of-mouth referrals and apply credits |
 | WOM | Word of Mouth — a primary growth mechanic for KidStreet |
 | Community Verified | An accessibility attribute confirmed by ≥3 parent reviews, upgrading from provider self-declaration |
 | Natural Language Search | Search using conversational input (e.g. "indoor soccer for a 7-year-old on weekends") rather than structured fields |
