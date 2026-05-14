@@ -9,7 +9,7 @@
 | Field | Detail |
 |---|---|
 | Product | KidStreet Parent Portal |
-| Phase | Phase 1 — Parent MVP + Phase 2 roadmap |
+| Phase | Phase 1 — Parent MVP |
 | Version | 1.0 |
 | Author | KidStreet Product Team |
 | Status | Draft — For Developer Review |
